@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "GenericColonListenerViewer",
+  "version": "1.0.0",
+
+  "description": "GenericColon listener viewer for YouTube Live.",
+  "icons": {
+    "128": "icons/128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/live_chat?*",
+        "https://studio.youtube.com/live_chat?*"
+      ],
+      "js": [
+        "js/listener_viewer_style.js",
+        "js/listener_viewer.js",
+        "js/comment_observer.js",
+        "js/main.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
