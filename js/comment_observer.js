@@ -13,7 +13,7 @@ class CommentObserver {
   };
 
   getListener = (chat_data) => {
-    const img = chat_data.querySelector('img');
+    const img = chat_data.querySelector('img').cloneNode();
     this.listener_viewer.addListenerImg(img);
   };
 }

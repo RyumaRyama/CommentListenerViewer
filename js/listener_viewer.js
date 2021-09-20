@@ -7,6 +7,8 @@ class ListenerViewer {
     this.listener_viewer_window_height = listener_viewer_window_size?.height ? parseInt(listener_viewer_window_size?.height) : 810;
     this.listener_viewer_window_width = listener_viewer_window_size?.width ? parseInt(listener_viewer_window_size?.width) : 1440;
     this.setListenerViewerWindow();
+
+    this.listener_hash = {};
   }
 
   element = () => {
@@ -28,38 +30,10 @@ class ListenerViewer {
     this.listener_viewer_window.document.body.innerHTML = '';
     this.listener_viewer_window.document.body.appendChild(this.element());
     this.timer = 0;
-    this.listener_viewer_window.onresize = this.windowResize;
 
     window.onbeforeunload = () => {
       this.listener_viewer_window.close();
     };
-  };
-
-  windowResize = () => {
-    if (this.timer > 0) clearTimeout(this.timer);
-
-    this.timer = setTimeout(() => {
-      const height_gap = this.listener_viewer_window.outerHeight - this.listener_viewer_window.innerHeight;
-      const width_gap = this.listener_viewer_window.outerWidth - this.listener_viewer_window.innerWidth;
-
-      let height = this.listener_viewer_window.innerHeight;
-      let width = this.listener_viewer_window.innerWidth;
-      if (height*16 > width*9) {
-        this.listener_viewer_window.resizeTo(height * (16/9) + width_gap, height + height_gap);
-      } else if (height*16 < width*9) {
-        this.listener_viewer_window.resizeTo(width + width_gap, width * (9/16) + height_gap);
-      }
-
-      height = this.listener_viewer_window.innerHeight;
-      width = this.listener_viewer_window.innerWidth;
-      if (height*16 > (width+1)*9) {
-        this.listener_viewer_window.resizeTo(width + width_gap, width * (9/16) + height_gap);
-      } else if ((height+1)*16 < width*9) {
-        this.listener_viewer_window.resizeTo(height * (16/9) + width_gap, height + height_gap);
-      }
-
-      this.inputListenerWindowSizeToLocalStorage();
-    }, 25);
   };
 
   inputListenerWindowSizeToLocalStorage = () => {
@@ -75,6 +49,8 @@ class ListenerViewer {
   };
 
   addListenerImg = (img) => {
+    if (!!this.listener_hash[img.src]) return;
+    this.listener_hash[img.src] = img
     this.element().appendChild(img);
   };
 }

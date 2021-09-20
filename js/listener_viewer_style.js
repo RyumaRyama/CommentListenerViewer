@@ -9,4 +9,8 @@ const css_data = `
   width: 100vw;
   height: 100vh;
 }
+
+img {
+  border-radius: 50%;
+}
 `;
