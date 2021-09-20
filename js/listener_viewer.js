@@ -29,6 +29,7 @@ class ListenerViewer {
     this.listener_viewer_window.document.head.appendChild(style);
     this.listener_viewer_window.document.body.innerHTML = '';
     this.listener_viewer_window.document.body.appendChild(this.element());
+    this.listener_viewer_window.onresize = this.inputListenerWindowSizeToLocalStorage;
     this.timer = 0;
 
     window.onbeforeunload = () => {
