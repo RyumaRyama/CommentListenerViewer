@@ -5,6 +5,10 @@ const css_data = `
   background-color: rgb(0, 255, 0);
 }
 
+#listener-viewer-container {
+  margin-top: ${top_margin}px;
+}
+
 .listener-viewer {
   display: flex;
   flex-direction: column;
@@ -13,7 +17,7 @@ const css_data = `
   width: 100vw;
   height: 0;
   box-sizing: border-box;
-  // position: absolute;
+  padding-right: 25px;
 }
 
 img {

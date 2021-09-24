@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "GenericColonListenerViewer",
-  "version": "1.0.0",
+  "name": "CommentListenerViewer",
+  "version": "1.0.3",
 
-  "description": "GenericColon listener viewer for YouTube Live.",
+  "description": "Comment listener viewer for YouTube Live.",
   "icons": {
     "128": "icons/128.png"
   },

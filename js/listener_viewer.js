@@ -29,7 +29,7 @@ class ListenerViewer {
     const style = document.createElement('style');
     style.innerHTML = css_data;
     this.listener_viewer_window.document.head.innerHTML = '';
-    this.listener_viewer_window.document.title = 'GenericColonListenerViewer';
+    this.listener_viewer_window.document.title = 'CommentListenerViewer';
     this.listener_viewer_window.document.head.appendChild(style);
     this.listener_viewer_window.document.body.innerHTML = '';
     this.listener_viewer_window.document.body.appendChild(this.element());
@@ -63,7 +63,7 @@ class ListenerViewer {
 
     if (this.loop) return;
     const window_height = this.listener_viewer_window.innerHeight;
-    if (window_height > listener_viewer_height) return;
+    if (window_height - top_margin > listener_viewer_height) return;
     this.loop = true;
     const clone_element = this.listener_viewer.cloneNode(true);
     this.addAutoScroll(this.listener_viewer);
