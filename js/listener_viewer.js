@@ -9,6 +9,7 @@ class ListenerViewer {
     this.setListenerViewerWindow();
 
     this.listener_hash = {};
+    this.loop = false;
   }
 
   element = () => {
@@ -17,7 +18,10 @@ class ListenerViewer {
 
   createListenerViewerContainer = () => {
     this.listener_viewer_container = document.createElement('div');
-    this.listener_viewer_container.id = 'listener-viewer';
+    this.listener_viewer_container.id = 'listener-viewer-container';
+    this.listener_viewer = document.createElement('div');
+    this.listener_viewer.classList.add('listener-viewer');
+    this.element().appendChild(this.listener_viewer);
   };
 
   setListenerViewerWindow = () => {
@@ -51,7 +55,33 @@ class ListenerViewer {
 
   addListenerImg = (img) => {
     if (!!this.listener_hash[img.src]) return;
-    this.listener_hash[img.src] = img
-    this.element().appendChild(img);
+    this.listener_hash[img.src] = img;
+    this.listener_viewer.appendChild(img);
+
+    const listener_viewer_height = Object.keys(this.listener_hash).length * (img_margin + img_size);
+    this.listener_viewer.style.height = listener_viewer_height;
+
+    if (this.loop) return;
+    const window_height = this.listener_viewer_window.innerHeight;
+    if (window_height > listener_viewer_height) return;
+    this.loop = true;
+    const clone_element = this.listener_viewer.cloneNode(true);
+    this.addAutoScroll(this.listener_viewer);
+    this.listener_viewer = clone_element;
+    this.element().appendChild(clone_element.cloneNode(true));
+  };
+
+  addAutoScroll = (element) => {
+    const animation = element.animate([
+      {
+        height: '0px',
+      }
+    ], element.childElementCount*scroll_time*1000);
+    animation.onfinish = () => {
+      const next = element.nextSibling;
+      this.addAutoScroll(next);
+      this.element().appendChild(this.listener_viewer.cloneNode(true));
+      element.remove();
+    };
   };
 }
